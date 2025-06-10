@@ -9,7 +9,7 @@ const Favorites = () => {
     const fetchFavorites = async () => {
       const token = localStorage.getItem('token');
       try {
-        const res = await axios.get('http://localhost:5000/api/user/favorites', {
+        const res = await axios.get(`${API_BASE_URL}/user/favorites`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -28,7 +28,7 @@ const Favorites = () => {
   const removeFavorite = async (movieId) => {
     const token = localStorage.getItem('token');
     try {
-      const res = await axios.delete(`http://localhost:5000/api/user/favorites/${movieId}`, {
+      const res = await axios.delete(`${API_BASE_URL}/user/favorites/${movieId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

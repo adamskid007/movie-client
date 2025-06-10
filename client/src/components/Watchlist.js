@@ -9,7 +9,7 @@ const Watchlist = () => {
     const fetchWatchlist = async () => {
       const token = localStorage.getItem('token');
       try {
-        const res = await axios.get('http://localhost:5000/api/user/watchlist', {
+        const res = await axios.get(`${API_BASE_URL}/user/watchlist`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setWatchlist(res.data);
@@ -24,7 +24,7 @@ const Watchlist = () => {
   const removeFromWatchlist = async (movieId) => {
     const token = localStorage.getItem('token');
     try {
-      const res = await axios.delete(`http://localhost:5000/api/user/watchlist/${movieId}`, {
+      const res = await axios.delete(`${API_BASE_URL}/user/watchlist/${movieId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setWatchlist(res.data);
