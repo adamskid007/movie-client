@@ -59,7 +59,7 @@ const fetchDetails = async () => {
     const watchlistMatch = watchlistRes.data.find((m) => m.movieId === id);
     setIsInWatchlist(!!watchlistMatch);
 
-    const reviewsRes = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/user/profile/reviews/${id}`);
+    const reviewsRes = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/user/reviews/${id}`);
     setReviews(reviewsRes.data);
 
 
