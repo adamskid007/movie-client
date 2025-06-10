@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import {jwtDecode} from 'jwt-decode';
 
 const MovieDetails = () => {
-  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   const { id } = useParams(); // Get movie ID from URL
   const [movie, setMovie] = useState(null);
   const [trailerKey, setTrailerKey] = useState(null);
@@ -45,7 +44,7 @@ const fetchDetails = async () => {
 
     // ✅ Fetch user's saved favorites
     const token = localStorage.getItem('token');
-    const favRes = await axios.get(`${API_BASE_URL}/user/favorites`, {
+    const favRes = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/user/favorites`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     setFavorites(favRes.data);
@@ -54,13 +53,13 @@ const fetchDetails = async () => {
     const found = favRes.data.find((m) => m.movieId === id);
     setIsFavorite(!!found);
     // Fetch watchlist
-    const watchlistRes = await axios.get(`${API_BASE_URL}/user/watchlist`, {
+    const watchlistRes = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/user/watchlist`, {
     headers: { Authorization: `Bearer ${token}` },
     });
     const watchlistMatch = watchlistRes.data.find((m) => m.movieId === id);
     setIsInWatchlist(!!watchlistMatch);
 
-    const reviewsRes = await axios.get(`${API_BASE_URL}/user/profile/reviews/${id}`);
+    const reviewsRes = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/user/profile/reviews/${id}`);
     setReviews(reviewsRes.data);
 
 
@@ -78,7 +77,7 @@ const fetchDetails = async () => {
     if (isFavorite) {
         // Remove
         try {
-        await axios.delete(`${API_BASE_URL}/user/favorites/${id}`, {
+        await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/user/favorites/${id}`, {
             headers: { Authorization: `Bearer ${token}` },
         });
         setIsFavorite(false);
@@ -89,7 +88,7 @@ const fetchDetails = async () => {
         // Add
         try {
         await axios.post(
-            `${API_BASE_URL}/user/favorites`,
+            `${process.env.REACT_APP_API_BASE_URL}/user/favorites`,
             {
             movieId: movie.id.toString(), // match DB format
             title: movie.title,
@@ -114,7 +113,7 @@ const fetchDetails = async () => {
     if (isInWatchlist) {
         // Remove from watchlist
         try {
-        await axios.delete(`${API_BASE_URL}/user/watchlist/${id}`, {
+        await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/user/watchlist/${id}`, {
             headers: { Authorization: `Bearer ${token}` },
         });
         setIsInWatchlist(false);
@@ -125,7 +124,7 @@ const fetchDetails = async () => {
         // Add to watchlist
         try {
         await axios.post(
-            `${API_BASE_URL}/user/watchlist`,
+            `${process.env.REACT_APP_API_BASE_URL}/user/watchlist`,
             {
             movieId: movie.id.toString(),
             title: movie.title,
@@ -148,7 +147,7 @@ const fetchDetails = async () => {
 
     try {
         const res = await axios.post(
-        `${API_BASE_URL}/reviews/${id}`,
+        `${process.env.REACT_APP_API_BASE_URL}/reviews/${id}`,
         { reviewText, rating },
         { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -179,7 +178,7 @@ const fetchDetails = async () => {
     const handleDeleteReview = async (reviewId) => {
     const token = localStorage.getItem('token');
     try {
-        await axios.delete(`${API_BASE_URL}/reviews/delete/${reviewId}`, {
+        await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/reviews/delete/${reviewId}`, {
         headers: { Authorization: `Bearer ${token}` },
         });
 

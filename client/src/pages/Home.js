@@ -77,7 +77,7 @@ const Home = () => {
 
     try {
       await axios.post(
-        `${API_BASE_URL}/user/favorites`,
+        `${process.env.REACT_APP_API_BASE_URL}/user/favorites`,
         {
           movieId: movie.id,
           title: movie.title,

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 const Login = () => {
   const [formData, setFormData] = useState({
     email: '',
@@ -14,7 +13,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${API_BASE_URL}/auth/login`, formData);
+      const res = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/auth/login`, formData);
       localStorage.setItem('token', res.data.token); // Store JWT
       alert('Login successful!');
       window.location.href = '/'; // Redirect to home

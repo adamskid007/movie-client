@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -17,7 +16,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get(`${API_BASE_URL}/user/profile`, {
+        const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/user/profile`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -37,7 +36,7 @@ const Profile = () => {
   const handleUpdate = async () => {
     try {
       const res = await axios.put(
-        `${API_BASE_URL}/user/profile`,
+        `${process.env.REACT_APP_API_BASE_URL}/user/profile`,
         form,
         {
           headers: {
@@ -57,7 +56,7 @@ const Profile = () => {
   const handleChangePassword = async () => {
   try {
     const res = await axios.put(
-      `${API_BASE_URL}/user/change-password`,
+      `${process.env.REACT_APP_API_BASE_URL}/user/change-password`,
       passwordForm,
       {
         headers: {
